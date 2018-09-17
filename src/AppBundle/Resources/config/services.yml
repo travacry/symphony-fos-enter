@@ -1,0 +1,7 @@
+services:
+  app.dataservice:
+      class: 'AppBundle\Services\DataService'
+#      file: %kernel.root_dir%/src
+      public: true
+      arguments:
+        - '@doctrine.orm.entity_manager'
