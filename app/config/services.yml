@@ -38,16 +38,12 @@ services:
 #    app.dataservice:
 #        public: true
 
-
-#imports:
     AppBundle\Services\DataService:
         arguments: ['@doctrine.orm.entity_manager']
-        public: false
-        tags:
-            - { name: 'app.data_service', alias: 'data_service' }
+#        tags:
+#            - { name: 'app.data_service', alias: 'data_service' }
 
-#    data_service:
-#      AppBundle\Services\DataService:
-#          alias: AppBundle\Services\DataService
-#          public: true
-#          arguments: ['@doctrine.orm.entity_manager']
+#    app.data_service:
+#        alias: AppBundle\Services\DataService
+#        public: true
+#        arguments: ['@doctrine.orm.entity_manager']

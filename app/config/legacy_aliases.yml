@@ -1,3 +1,3 @@
 # app/config/legacy_aliases.yml
-#services:
-#    app.data_service: '@AppBundle\Services\DataService'
+services:
+    app.data_service: '@AppBundle\Services\DataService'

@@ -5,18 +5,16 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Groups;
 use AppBundle\Entity\User;
 use AppBundle\Form\DataFormType;
-use AppBundle\Repository\DataRepository;
 use AppBundle\Request\CreateDataRequest;
-use AppBundle\Services\DataService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
 
-class DefaultController extends AbstractController
+class DefaultController extends Controller
 {
     /**
      * @Route("/update", name="update")
@@ -46,7 +44,7 @@ class DefaultController extends AbstractController
 //        $dataRepository->load($id);
 
 
-        $dataService = $this->container->get(DataService::class);
+        $dataService = $this->get('app.data_service');
 
 
 die;
