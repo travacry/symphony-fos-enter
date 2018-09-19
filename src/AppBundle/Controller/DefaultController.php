@@ -7,6 +7,10 @@ use AppBundle\Entity\User;
 use AppBundle\Form\DataFormType;
 use AppBundle\Request\CreateDataRequest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Swift_Attachment;
+use Swift_Mailer;
+use Swift_Message;
+use Swift_SmtpTransport;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,12 +21,28 @@ use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/update", name="update")
+     * @Route("/mailer", name="app_mailer")
      * @Security("has_role('ROLE_USER')")
      * @Template
      */
-    public function updateAction(Request $request) {
+    public function mailerAction(Request $request) {
 
+        $transport = (new Swift_SmtpTransport('smtp.example.org', 25))
+            ->setUsername('your username')
+            ->setPassword('your password')
+        ;
+
+        $mailer = new Swift_Mailer($transport);
+
+        $message = Swift_Message::newInstance()
+            ->setFrom(['from@example.com' => 'From'])
+            ->setTo(['to@example.com' => 'To'])
+            ->setSubject('Subject')
+            ->setBody('Body')
+            ->attach(Swift_Attachment::fromPath('/path/to/a/file.zip'))
+        ;
+
+        $mailer->send($message);
     }
 
     /**
@@ -43,16 +63,9 @@ class DefaultController extends Controller
 //        $dataRepository = new DataRepository($entityManager);
 //        $dataRepository->load($id);
 
-
         $dataService = $this->get('app.data_service');
-
-
-die;
-
         $dataRepository = $dataService->load($id);
-
         $form = $this->createForm(DataFormType::class, $dataRepository);
-
 
         return [ 'form' => $form->createView() ];
     }
